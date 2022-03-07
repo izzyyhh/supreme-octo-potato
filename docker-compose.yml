@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+    mongo:
+        image: mongo
+        ports:
+            - '27017:27017'
+        restart: on-failure:5
+    mongo_dump:
+        build: ./db/dump
+    node:
+        build: .
+        ports:
+            - '8080:8080'
+        restart: on-failure:5
+        depends_on:
+            - mongo
