@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import fetch from 'node-fetch'
+import { findTweets } from './db/db.js'
 
 dotenv.config()
 const PORT = 8080
@@ -37,8 +38,37 @@ app.get('/tweets/recent/:hashtag', (req, res) => {
         })
             .then((resp) => resp.json())
             .then((json) => {
-                res.send(JSON.stringify(json))
+                res.send(json)
             })
+    }
+})
+
+app.get('/tweets', async (req, res) => {
+    const skip = parseInt(req.query.skip)
+    const pageSize = parseInt(req.query.page)
+
+    if (pageSize == undefined || skip == undefined) {
+        res.send(
+            JSON.stringify({
+                message: `BAD REQUEST query parameter 'page or skip' is missing`,
+                status: 400,
+            })
+        )
+    } else {
+        const tweets = await findTweets(skip, pageSize)
+        const responseTweets = tweets.map((tweet) => {
+            return {
+                id: tweet._id,
+                text: tweet.text,
+            }
+        })
+
+        const response = {
+            data: responseTweets,
+            status: 200,
+        }
+
+        res.send(response)
     }
 })
 

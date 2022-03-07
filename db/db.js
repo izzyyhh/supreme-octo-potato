@@ -27,6 +27,7 @@ export async function findTweets(from, pageSize) {
         const tweetsCollection = database.collection(collectionName)
         const options = {
             text: 1,
+            enableUtf8Validation: true,
         }
 
         return await tweetsCollection
