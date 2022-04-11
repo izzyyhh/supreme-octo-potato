@@ -44,8 +44,11 @@ app.get('/tweets/recent/:hashtag', (req, res) => {
 })
 
 app.get('/tweets', async (req, res) => {
-    const skip = parseInt(req.query.skip)
-    const pageSize = parseInt(req.query.page)
+    let skip = parseInt(req.query.skip)
+    let pageSize = parseInt(req.query.page)
+
+    if (skip > 100) skip %= 100
+    if (pageSize > 100) pageSize = 100
 
     if (pageSize == undefined || skip == undefined) {
         res.send(
@@ -66,6 +69,7 @@ app.get('/tweets', async (req, res) => {
         const response = {
             data: responseTweets,
             status: 200,
+            count: responseTweets.length,
         }
 
         res.send(response)
