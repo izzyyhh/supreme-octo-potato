@@ -1,9 +1,14 @@
 import { MongoClient } from 'mongodb'
+import dotenv from 'dotenv'
+dotenv.config()
 
-const uri = 'mongodb://mongo:27017'
-const client = new MongoClient(uri)
+const username = encodeURIComponent(process.env.MONGO_INITDB_ROOT_USERNAME)
+const password = encodeURIComponent(process.env.MONGO_INITDB_ROOT_PASSWORD)
+
 const dbName = 'restdb'
 const collectionName = 'tweets'
+const uri = `mongodb://${username}:${password}@mongo:27017/${dbName}?authSource=admin`
+const client = new MongoClient(uri)
 
 export async function findAllTweets() {
     try {

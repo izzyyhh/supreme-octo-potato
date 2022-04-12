@@ -5,8 +5,12 @@ services:
         ports:
             - '27017:27017'
         restart: on-failure:5
+        env_file:
+            - ./.env
     mongo_dump:
         build: ./db/dump
+        env_file:
+            - ./.env
     node:
         build: .
         ports:
