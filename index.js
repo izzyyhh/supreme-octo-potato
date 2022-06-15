@@ -60,10 +60,10 @@ app.get('/tweets', async (req, res) => {
     } else {
         const tweets = await findTweets(skip, pageSize)
         const responseTweets = tweets.map((tweet) => {
-            return {
-                id: tweet._id,
-                text: tweet.text,
-            }
+            const clone = Object.assign({}, tweet)
+            delete clone._id
+
+            return clone
         })
 
         const response = {
