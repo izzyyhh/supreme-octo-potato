@@ -61,8 +61,8 @@ app.get('/tweets', async (req, res) => {
         const tweets = await findTweets(skip, pageSize)
         const responseTweets = tweets.map((tweet) => {
             return {
-                id: tweet._id,
-                text: tweet.text,
+                id: { id: tweet._id },
+                text: { text: tweet.text },
             }
         })
 
