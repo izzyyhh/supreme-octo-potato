@@ -1,6 +1,11 @@
 # REST server Bachelor Thesis Ismail Halili
 A server with an endpoint that servers tweets through pagination.
 
+Start with Docker:
+```
+docker-compose up
+```
+
 Helpful script for deployment:
 ```
 ssh root@host  
