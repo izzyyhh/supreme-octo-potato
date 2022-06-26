@@ -1,6 +1,13 @@
 # REST server Bachelor Thesis Ismail Halili
 A server with an endpoint that servers tweets through pagination.
 
+Set environment variables:
+```
+TWITTER_BEARER_TOKEN=TEST
+MONGO_INITDB_ROOT_USERNAME=TEST
+MONGO_INITDB_ROOT_PASSWORD=SECRET
+```
+
 Start with Docker:
 ```
 docker-compose up
